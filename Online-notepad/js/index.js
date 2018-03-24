@@ -7,6 +7,8 @@ file.onchange = function () {
     reader.onload = function () {
         _('.content').value = reader.result;
         _('.fn').value = file.files[0].name;
+        localStorage.setItem('filename', _('.fn').value);
+        localStorage.setItem('content', _('.content').value);
     };
     reader.readAsText(file.files[0]);
 };
@@ -16,3 +18,11 @@ document.querySelector('button').onclick = function () {
 window.onresize = function () {
     _('.content').setAttribute('style', 'width:' + window.innerWidth - 30 + "px" + "resize: none");
 };
+_('.content').onkeyup = function () {
+    localStorage.setItem('content', _('.content').value);
+};
+_('.content').innerHTML = localStorage.getItem('content');
+_('.fn').onkeyup = function () {
+    localStorage.setItem('filename', _('.fn').value);
+};
+_('.fn').value = localStorage.getItem('filename');
